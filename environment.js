@@ -1,6 +1,6 @@
 const environment = {
     appPath : "http://localhost:4200",
-    //appPath : "https://sixthgear-fe348.firebaseapp.com",
+    //appPath : "https://tieopinion.firebaseapp.com",
     dbAuth : {
         host: "localhost",
         user: "root",
@@ -9,9 +9,9 @@ const environment = {
     },
     /*dbAuth : {
         host: "db4free.net",
-        user: "sixthgear",
-        password: "sixthgear@123",
-        database: "sixthgear"
+        user: "tievaluation1",
+        password: "tievaluation@123",
+        database: "tievaluation1"
     },*/
     newDataPath : "./data/csv/new/",
     annoatedDataPath : "./data/csv/annoated/",
