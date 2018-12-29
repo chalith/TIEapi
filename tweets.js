@@ -51,39 +51,23 @@ router.post('/', function (req, res) {
     for(var i=0; i<tweets.length; i++){
         values.push("('"+tweets[i].id+"','"+tweets[i].text.replace("'","\\'")+"','"+JSON.stringify(tweets[i].sentiment)+"','"+insertId+"')")
     }
-    if(insertId){
-        var sql = 'DELETE FROM tweetopinion WHERE create_id = \''+insertId+'\';'
-        con.query(sql, function (err, res1) {
-            if (err){
-                res.writeHead(400, {'Content-type':'text/html'});
-                console.log(err);
-                res.end(err);
-            }
-            else insertData(values, (err, res2)=>{
-                if (err){
-                    res.writeHead(400, {'Content-type':'text/html'});
-                    console.log(err);
-                    res.end(err);
-                }
-                else{
-                    res.send({ create_id: insertId });
-                }
-            });
-        });   
-    }
-    else{
-        insertData(values, (err, res1)=>{
+    var sql = 'DELETE FROM tweetopinion WHERE create_id = \''+insertId+'\';'
+    con.query(sql, function (err, res1) {
+        if (err){
+            res.writeHead(400, {'Content-type':'text/html'});
+            console.log(err);
+            res.end(err);
+        }
+        else insertData(values, (err, res2)=>{
             if (err){
                 res.writeHead(400, {'Content-type':'text/html'});
                 console.log(err);
                 res.end(err);
             }
             else{
-                fs.rename(filepath, environment.annoatedDataPath + create_id + ".csv", function (err) {
+                fs.rename(filepath, environment.annoatedDataPath + insertId + ".csv", function (err) {
                     if (err){
-                        res.writeHead(400, {'Content-type':'text/html'});
-                        console.log(err);
-                        res.end(err);
+                        res.send({ create_id: insertId });
                     }
                     else{
                         res.send({ create_id: insertId });
@@ -91,7 +75,7 @@ router.post('/', function (req, res) {
                 });
             }
         });
-    }
+    }); 
 });
 
 function insertData(values, callback){
