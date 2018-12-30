@@ -39,17 +39,9 @@ def removeRepeats(text):
 def removeEmoticons(text):
     return ''.join(c for c in text if not(c in emoji.UNICODE_EMOJI))
 
-def removeRepeats(text):
-    text = re.sub(r'([a-zA-Z]?)\1{2,}', r'\1\1', text)
-    text = re.sub(r'([^a-zA-Z]|.{2,}?)\1+', r'\1', text)
-    return text
-
 def removeNumbers(text):
     text = re.sub(r'[0-9]+', '', text)
     return text
-
-def removeEmoticons(text):
-    return ''.join(c for c in text if not(c in emoji.UNICODE_EMOJI))
 
 def removeOwnerships(text):
     return text.replace("'s","")
@@ -77,13 +69,13 @@ def getSentimentText(text):
     text = removeURLs(text)
     text = removeUserNames(text)
     text = removeHashtags(text)
-    #text = removeUnwanted(text)
+    text = removeUnwanted(text)
     text = removeNumbers(text)
     text = removeRepeats(text)
     text = removeEmoticons(text)
     text = clearText(text)
-    #text = removeOwnerships(text)
-    #text = removePunctuation(text)
+    text = removeOwnerships(text)
+    text = removePunctuation(text)
     return text
 
 def extractEntityNames(tree):

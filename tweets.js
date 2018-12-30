@@ -22,7 +22,7 @@ router.get('/', function (req, res) {
         if (err) console.log(err);
         csv().fromFile(filepath).then((jsonObj)=>{
             jsonObj.forEach(item => {
-                item['keywords'] = keyword_extractor.extract(item.text,{
+                item['keywords'] = keyword_extractor.extract(item.sentiment_text,{
                     language:"english",
                     remove_digits: true,
                     return_changed_case:true,

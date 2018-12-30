@@ -8,6 +8,7 @@ Rake = Rake()
 
 tweet_ids = []
 texts = []
+sentiment_texts = []
 keywords = ["travel","holiday","vacation","traveling","TTOT",
             "wanderlust", "RTW","backpacking","adventure","hotel","nature"]
 
@@ -51,12 +52,12 @@ def genarateJson(tweets_file):
         if isSubjective(sentiment_text, hashtags):
             count = count + 1
             tweet_id = cur_item["id"]
-            text = sentiment_text
             tweet_ids.append(tweet_id)
             texts.append(text)
+            sentiment_texts.append(sentiment_text)
             if count%10 == 0:
                 savefilename += 1
-                filejsn = {'id': tweet_ids, 'text': texts}
+                filejsn = {'id': tweet_ids, 'text': texts, 'sentiment_text': sentiment_texts}
                 tweet_ids = []
                 texts = []
                 outdf = pd.DataFrame(filejsn).sample(frac=1).reset_index(drop=True)
