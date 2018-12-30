@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 29, 2018 at 08:37 PM
+-- Generation Time: Dec 30, 2018 at 04:35 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -44,6 +44,25 @@ INSERT INTO `admin` (`id`, `email`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `file`
+--
+
+CREATE TABLE `file` (
+  `id` int(11) NOT NULL,
+  `file` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `file`
+--
+
+INSERT INTO `file` (`id`, `file`) VALUES
+(25, 1),
+(26, 10);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tweetopinion`
 --
 
@@ -52,34 +71,35 @@ CREATE TABLE `tweetopinion` (
   `tweet_id` varchar(100) NOT NULL,
   `text` text NOT NULL,
   `sentiment` text NOT NULL,
-  `create_id` varchar(100) NOT NULL
+  `create_id` varchar(100) NOT NULL,
+  `file` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tweetopinion`
 --
 
-INSERT INTO `tweetopinion` (`id`, `tweet_id`, `text`, `sentiment`, `create_id`) VALUES
-(331, '825862031010099200', 'Falling Water @ Niagara Falls, Ontario, Canada', '{\"negative\":[\"falling\"],\"neutral\":[\"niagara\"],\"positive\":[]}', '602v0hlbjq9uvoss'),
-(332, '826149113506959361', 'Ohh these Orchids are .', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v0hlbjq9uvoss'),
-(333, '825563638115078144', 'Eating a beaver tail before I get back to the hotel and eat some \"beaver tail\" .', '{\"negative\":[\"eating\"],\"neutral\":[],\"positive\":[]}', '602v0hlbjq9uvoss'),
-(334, '826421992752439297', 'First drop of the day. .', '{\"negative\":[\"drop\"],\"neutral\":[],\"positive\":[\"day\"]}', '602v0hlbjq9uvoss'),
-(335, '826027738008018944', 'I am at Hyatt Regency Buffalo / Hotel and Conference Center in Buffalo, NY', '{\"negative\":[],\"neutral\":[\"hyatt\"],\"positive\":[]}', '602v0hlbjq9uvoss'),
-(336, '826077384004640768', 'Make Monday matter.', '{\"negative\":[],\"neutral\":[\"make\"],\"positive\":[]}', '602v0hlbjq9uvoss'),
-(337, '826843707265556481', '.', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v0hlbjq9uvoss'),
-(338, '825129732341690369', 'Just posted a photo @ Seneca Casino and Hotel , NiagraFalls Ny', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v0hlbjq9uvoss'),
-(339, '826829794914492417', 'Blend with nature @ Niagara Falls', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v0hlbjq9uvoss'),
-(340, '825548224937201664', 'Mmm, liquor. (@ Hyatt Regency Buffalo / Hotel and Conference Center in Buffalo, NY)', '{\"negative\":[\"mmm regency\"],\"neutral\":[\"liquor\"],\"positive\":[\"hyatt\"]}', '602v0hlbjq9uvoss'),
-(351, '824855013084139522', 'between adventures, we adult. and we adult, so we can adventure. @.', '{\"negative\":[],\"neutral\":[\"adult\"],\"positive\":[]}', '602v0hlbjq9uygq2'),
-(352, '825607505359360000', 'it is always a danger and an adventure. @ TheGypsyParlor', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v0hlbjq9uygq2'),
-(353, '979301273215348736', '.', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v0hlbjq9uygq2'),
-(354, '977553673772466176', 'think I almost only died five times holy hell that was killer after vacation .', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v0hlbjq9uygq2'),
-(355, '978054485988720640', 'Canadian hiking. @ Woodend.', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v0hlbjq9uygq2'),
-(356, '978273972973461504', '/ - Of course we stopped at Niagara Falls! .', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v0hlbjq9uygq2'),
-(357, '978360410645630976', 'Beautiful morning for a walk around Buffalo\'s botanical gardens. via.', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v0hlbjq9uygq2'),
-(358, '978265407273472000', '/ - Our hotel at Niagara Falls had a voucher for breakfast at the IHOP! I got strawberry.', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v0hlbjq9uygq2'),
-(359, '977993789464895490', 'Having a blast at hotelatthelafayette [?] @ Hotel at The Lafayette', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v0hlbjq9uygq2'),
-(360, '978050808225976320', 'Ok who is up for team building!?!bnigoldenhorseshoe .', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v0hlbjq9uygq2');
+INSERT INTO `tweetopinion` (`id`, `tweet_id`, `text`, `sentiment`, `create_id`, `file`) VALUES
+(691, '619342924275433472', 'Midnight tourism is the only option when your traveling for business.   I am glad most things look... https://t.co/j5I9UVksyr', '{\"negative\":[\"midnight tourism\"],\"neutral\":[\"traveling\"],\"positive\":[\"option\"]}', '602v072wjqb1yjy9', ''),
+(692, '620999465726558208', 'Lunch break before we go to the indoor rides. (@ Comfort Inn - @niagara_hotel in Niagara Falls, ON) https://t.co/heO9C4jgjz', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v072wjqb1yjy9', ''),
+(693, '618866825640701952', 'if you ever wondered what happens with ur #raincoat after being #inthemist at #niagara #falls ask poor #nature http://t.co/RUNP9wquqA', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v072wjqb1yjy9', ''),
+(694, '620370181706121216', 'a crappy picture to go with a great vacation @ obx https://t.co/RteIa3u1Dt', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v072wjqb1yjy9', ''),
+(695, '620020857763725312', 'The beautiful bride and I. #FinallyDeso @ Hotel at The Lafayette https://t.co/uGRLVWHhUn', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v072wjqb1yjy9', ''),
+(696, '620020609750335488', 'Vanessa Williams slept here. (@ Hotel @ The Lafayette - @hotel_lafayette in Buffalo, NY) https://t.co/8ZgJIU1az8', '{\"negative\":[],\"neutral\":[\"vanessa\"],\"positive\":[]}', '602v072wjqb1yjy9', ''),
+(697, '619197404668149760', 'I need a vacation so badly it hurts', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v072wjqb1yjy9', ''),
+(698, '620821230468395009', '#niagra #niagrafalls #travel #amazing #wonders #7wonders @ Niagara Falls https://t.co/MqpSc4VVP5', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v072wjqb1yjy9', ''),
+(699, '620058510420758528', 'This one. #Jordan #FinallyDeso @ Hotel at The Lafayette https://t.co/WRYfGAhGcD', '{\"negative\":[\"hotel\"],\"neutral\":[],\"positive\":[]}', '602v072wjqb1yjy9', ''),
+(700, '620717008427089920', 'Caught someone mid-yawn during a gas stop before heading to the hotel. 4 min away! Kaya\'s ready to... https://t.co/AWeT5o65RT', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v072wjqb1yjy9', ''),
+(711, '587510702765649920', 'The hotel I am staying in has HBO and I just got to watch the new episode of GOT. Thank god.', '{\"negative\":[\"hotel\"],\"neutral\":[\"staying\"],\"positive\":[]}', '602v072wjqb20ys7', ''),
+(712, '586859248849711104', 'There is a Starbucks in the lobby of my hotel...its a sign.', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v072wjqb20ys7', ''),
+(713, '585998611433029632', 'You go to Florida on spring break with no parents and are in your hotel at 10 of the clock. I see something wrong with that picture.', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v072wjqb20ys7', ''),
+(714, '586128113739898881', 'My Mobile Command Center at 7am. #Traveling #Rochester #Meetings #Training #NYRegion #AlwaysWorking @... https://t.co/KFgz09Xi7x', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v072wjqb20ys7', ''),
+(715, '587696723834863616', 'Saving my money for a new car when my lease is up and my mom told me to screw it and travel this summer.  hmmmm......', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v072wjqb20ys7', ''),
+(716, '587307906246164480', '3.5 hrs, that is it... Then I can go outside in nature and sketch breasts and eat sushi like I want.', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v072wjqb20ys7', ''),
+(717, '587783558758019072', '\"@WORIDSTARHIPHOP: This makes me happy http://t.co/eeZqMTR1fP\" it makes you happy that nature is failing? animals do not even know instinct?', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v072wjqb20ys7', ''),
+(718, '587765758714753024', 'Nothing like sleeping in your own bed after coming home from vacation', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v072wjqb20ys7', ''),
+(719, '587929509841793024', 'Worst day of the semester when self service decides to take a vacation', '{\"negative\":[],\"neutral\":[],\"positive\":[]}', '602v072wjqb20ys7', ''),
+(720, '585920766778179585', 'My Twitter and Instagram consist of pictures of people on vacation and talking about it and im in buffalo', '{\"negative\":[\"consist\"],\"neutral\":[\"twitter\"],\"positive\":[\"instagram\"]}', '602v072wjqb20ys7', '');
 
 --
 -- Indexes for dumped tables
@@ -89,6 +109,12 @@ INSERT INTO `tweetopinion` (`id`, `tweet_id`, `text`, `sentiment`, `create_id`) 
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `file`
+--
+ALTER TABLE `file`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -108,10 +134,16 @@ ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `file`
+--
+ALTER TABLE `file`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
 -- AUTO_INCREMENT for table `tweetopinion`
 --
 ALTER TABLE `tweetopinion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=361;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=721;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

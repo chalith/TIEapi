@@ -32,9 +32,13 @@ router.get('/', function (req, res) {
 
                     });
                 });
-                fs.rename(filepath, environment.annoatedDataPath + filename, function (err) {
-                    if (err) console.log(err)
-                    res.send({filepath: environment.annoatedDataPath + filename, tweets: jsonObj});
+                var sql = 'INSERT INTO file(file) VALUES (\''+filename+'\');'
+                con.query(sql, function (err, res1) {
+                    if (err) console.log(err);
+                    fs.rename(filepath, environment.annoatedDataPath + filename, function (err) {
+                        if (err) console.log(err);
+                        res.send({filepath: environment.annoatedDataPath + filename, tweets: jsonObj});
+                    });
                 });
             });
         }
@@ -80,12 +84,35 @@ function insertData(values, callback){
 function getFile(dir, callback){
     fs.readdir(dir, function (err, list) {
         if(list.length > 0 && isCSV(path.extname(list[0]))) {
-            callback(null, list[0]);
-        }
-        else{
-            callback("Files dos not exist", null);
+            var file;
+            var sql = 'SELECT DISTINCT file FROM file;'
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                for(var i=0; i<list.length; i++){
+                    if(!isExist(result, list[i])){
+                        file = list[i];
+                        break;
+                    }
+                }
+                if(file){
+                    callback(null, file);
+                }
+                else{
+                    callback("Files dos not exist", null);
+                }
+            });
+            
         }
     });
+}
+
+function isExist(result, file){
+    for(var i=0; i<result.length; i++){
+        if(file === result[i].file+".csv"){
+            return true;
+        }
+    }
+    return false;
 }
 
 function isCSV(ext){
