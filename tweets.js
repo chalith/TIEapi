@@ -108,7 +108,7 @@ function getFile(dir, callback){
 
 function isExist(result, file){
     for(var i=0; i<result.length; i++){
-        if(file === result[i].file+".csv"){
+        if(file === result[i].file){
             return true;
         }
     }
