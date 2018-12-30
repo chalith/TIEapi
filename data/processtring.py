@@ -69,12 +69,11 @@ def getSentimentText(text):
     text = removeURLs(text)
     text = removeUserNames(text)
     text = removeHashtags(text)
+    text = removeOwnerships(text)
+    text = removeEmoticons(text)
     text = removeUnwanted(text)
     text = removeNumbers(text)
     text = removeRepeats(text)
-    text = removeEmoticons(text)
-    text = clearText(text)
-    text = removeOwnerships(text)
     text = removePunctuation(text)
     return text
 
