@@ -19,22 +19,24 @@ router.get('/fromdb', function (req, res) {
 router.get('/', function (req, res) {
     getFile(environment.newDataPath, function (err, filename) {
         var filepath = environment.newDataPath + filename;
-        if (err) console.log(err);
-        csv().fromFile(filepath).then((jsonObj)=>{
-            jsonObj.forEach(item => {
-                item['keywords'] = keyword_extractor.extract(item.sentiment_text,{
-                    language:"english",
-                    remove_digits: true,
-                    return_changed_case:true,
-                    remove_duplicates: false
+        if (err) res.send({ err: err });
+        else{
+            csv().fromFile(filepath).then((jsonObj)=>{
+                jsonObj.forEach(item => {
+                    item['keywords'] = keyword_extractor.extract(item.sentiment_text,{
+                        language:"english",
+                        remove_digits: true,
+                        return_changed_case:true,
+                        remove_duplicates: false
 
+                    });
+                });
+                fs.rename(filepath, environment.annoatedDataPath + filename, function (err) {
+                    if (err) console.log(err)
+                    res.send({filepath: environment.annoatedDataPath + filename, tweets: jsonObj});
                 });
             });
-            fs.rename(filepath, environment.annoatedDataPath + filename, function (err) {
-                if (err) console.log(err)
-                res.send({filepath: environment.annoatedDataPath + filename, tweets: jsonObj});
-            });
-        });
+        }
     });
 });
 
@@ -53,7 +55,7 @@ router.post('/', function (req, res) {
     con.query(sql, function (err, res1) {
         if(err) console.log(err);
         insertData(values, (err, res2)=>{
-            if (err) onsole.log(err);
+            if (err) console.log(err);
             if(filepath){
                 fs.rename(filepath, environment.annoatedDataPath + insertId + ".csv", function (err) {
                     if (err) console.log(err);
@@ -80,7 +82,7 @@ function getFile(dir, callback){
             callback(null, list[0]);
         }
         else{
-            callback(null, null);
+            callback("Files dos not exist", null);
         }
     });
 }

@@ -29,7 +29,7 @@ def isSubjective(text, hashtags):
     return False
 
 def genarateJson(tweets_file):
-    global texts, tweet_ids, i, count, savefilename
+    global texts, tweet_ids, sentiment_texts, i, count, savefilename
     loader = ['-','\\','|','/']
     for line in tweets_file:
         try:
@@ -60,6 +60,7 @@ def genarateJson(tweets_file):
                 filejsn = {'id': tweet_ids, 'text': texts, 'sentiment_text': sentiment_texts}
                 tweet_ids = []
                 texts = []
+                sentiment_texts = []
                 outdf = pd.DataFrame(filejsn).sample(frac=1).reset_index(drop=True)
                 outdf.to_csv('./csv/new/'+str(savefilename)+'.csv')
                             
