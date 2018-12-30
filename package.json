@@ -13,6 +13,7 @@
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "csvtojson": "^2.0.8",
+    "escape-quotes": "^1.0.2",
     "express": "^4.16.4",
     "json2csv": "^4.3.2",
     "jsonexport": "^2.4.1",

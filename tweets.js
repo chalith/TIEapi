@@ -7,6 +7,7 @@ const csv = require('csvtojson');
 const fs = require('fs');
 const keyword_extractor = require('keyword-extractor');
 const uniqid = require('uniqid');
+const escape_quotes = require('escape-quotes');
 
 router.get('/fromdb', function (req, res) {
     var sql = 'SELECT * FROM tweetopinion;'
@@ -49,7 +50,7 @@ router.post('/', function (req, res) {
     }
     var values = [];
     for(var i=0; i<tweets.length; i++){
-        values.push("('"+tweets[i].id+"','"+tweets[i].text.replace("'","\\'")+"','"+JSON.stringify(tweets[i].sentiment)+"','"+insertId+"')")
+        values.push("('"+tweets[i].id+"','"+escape_quotes(tweets[i].text)+"','"+JSON.stringify(tweets[i].sentiment)+"','"+insertId+"')")
     }
     var sql = 'DELETE FROM tweetopinion WHERE create_id = \''+insertId+'\';'
     con.query(sql, function (err, res1) {

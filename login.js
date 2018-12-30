@@ -4,8 +4,9 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const router = express.Router();
 const environment = require('./environment');
+const path = require("path");
 
-const RSA_PRIVATE_KEY = fs.readFileSync('private.key');
+const RSA_PRIVATE_KEY = fs.readFileSync(path.resolve(__dirname, 'private.key'));
 
 router.get('/', function (req, res) {
     var tables = ' a.*';

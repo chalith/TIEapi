@@ -1,6 +1,6 @@
 const environment = {
     appPath : "http://localhost:4200",
-    //appPath : "https://tieopinion.firebaseapp.com",
+    //appPath : "https://tieopinion-fe02d.firebaseapp.com",
     dbAuth : {
         host: "localhost",
         user: "root",
