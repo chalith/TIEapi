@@ -17,26 +17,24 @@ router.get('/fromdb', function (req, res) {
 });
 
 router.get('/', function (req, res) {
-    getFile(environment.newDataPath, function (err, filepath) {
-        if (err){
-            res.writeHead(400, {'Content-type':'text/html'});
-            console.log(err);
-            res.end(err);
-        }
-        else{
-            csv().fromFile(filepath).then((jsonObj)=>{
-                jsonObj.forEach(item => {
-                    item['keywords'] = keyword_extractor.extract(item.text,{
-                        language:"english",
-                        remove_digits: true,
-                        return_changed_case:true,
-                        remove_duplicates: false
+    getFile(environment.newDataPath, function (err, filename) {
+        var filepath = environment.newDataPath + filename;
+        if (err) console.log(err);
+        csv().fromFile(filepath).then((jsonObj)=>{
+            jsonObj.forEach(item => {
+                item['keywords'] = keyword_extractor.extract(item.text,{
+                    language:"english",
+                    remove_digits: true,
+                    return_changed_case:true,
+                    remove_duplicates: false
 
-                   });
                 });
-                res.send({filepath: filepath, tweets: jsonObj});
             });
-        }
+            fs.rename(filepath, environment.annoatedDataPath + filename, function (err) {
+                if (err) console.log(err)
+                res.send({filepath: environment.annoatedDataPath + filename, tweets: jsonObj});
+            });
+        });
     });
 });
 
@@ -53,26 +51,17 @@ router.post('/', function (req, res) {
     }
     var sql = 'DELETE FROM tweetopinion WHERE create_id = \''+insertId+'\';'
     con.query(sql, function (err, res1) {
-        if (err){
-            res.writeHead(400, {'Content-type':'text/html'});
-            console.log(err);
-            res.end(err);
-        }
-        else insertData(values, (err, res2)=>{
-            if (err){
-                res.writeHead(400, {'Content-type':'text/html'});
-                console.log(err);
-                res.end(err);
+        if(err) console.log(err);
+        insertData(values, (err, res2)=>{
+            if (err) onsole.log(err);
+            if(filepath){
+                fs.rename(filepath, environment.annoatedDataPath + insertId + ".csv", function (err) {
+                    if (err) console.log(err);
+                    res.send({ create_id: insertId });
+                });
             }
             else{
-                fs.rename(filepath, environment.annoatedDataPath + insertId + ".csv", function (err) {
-                    if (err){
-                        res.send({ create_id: insertId });
-                    }
-                    else{
-                        res.send({ create_id: insertId });
-                    }
-                });
+                res.send({ create_id: insertId });
             }
         });
     }); 
@@ -88,7 +77,7 @@ function insertData(values, callback){
 function getFile(dir, callback){
     fs.readdir(dir, function (err, list) {
         if(list.length > 0 && isCSV(path.extname(list[0]))) {
-            callback(null, dir+list[0]);
+            callback(null, list[0]);
         }
         else{
             callback(null, null);
