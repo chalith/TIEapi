@@ -26,7 +26,6 @@ router.get('/', function (req, res) {
                 jsonObj.forEach(item => {
                     item['keywords'] = keyword_extractor.extract(item.sentiment_text,{
                         language:"english",
-                        remove_digits: true,
                         return_changed_case:true,
                         remove_duplicates: false
 
